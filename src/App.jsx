@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './module/action';
 
 class App extends Component {
 
 	constructor() {
 		super();
-		this.state = { hidden: false };
 		this.handleButtonClick = this.handleButtonClick.bind(this);
 	}
 
 	getSeeMeJSX() {
-		const { hidden } = this.state;
+		const { hidden } = this.props;
 		return hidden
 			? null
 			: <div>See Me?</div>;
@@ -17,8 +18,7 @@ class App extends Component {
 
 	handleButtonClick(e) {
 		e.preventDefault();
-		const { hidden } = this.state;
-		this.setState({ hidden: !hidden });
+		this.props.toggle();
 	}
 
 	render() {
@@ -32,6 +32,12 @@ class App extends Component {
 	}
 }
 
-// const mapStateToProps = state => state.text;
+App.propTypes = {
+	hidden: PropTypes.bool,
+	toggle: PropTypes.func,
+};
 
-export default App;
+const mapStateToProps = state => ({ hidden: state.hidden });
+const mapDispatchToProps = { toggle: actions.toggleDiv };
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
