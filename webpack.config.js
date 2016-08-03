@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
 	devtool: 'source-map',
 	entry: {
-		main: path.resolve('./index'),
+		main: path.resolve('./src/index'),
 	},
 	output: {
 		path: path.resolve('./dist'),
