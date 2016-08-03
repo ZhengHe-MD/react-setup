@@ -32,4 +32,6 @@ class App extends Component {
 	}
 }
 
+// const mapStateToProps = state => state.text;
+
 export default App;
