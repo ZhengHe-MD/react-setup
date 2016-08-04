@@ -1,35 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { tickHOC } from './hoc';
+import TickTock from './TickTock';
 
-class App extends Component {
+console.log(tickHOC);
 
-	constructor() {
-		super();
-		this.state = { hidden: false };
-		this.handleButtonClick = this.handleButtonClick.bind(this);
-	}
+const intervalFn = (state) => ({ seconds: state.seconds + 1 });
 
-	getSeeMeJSX() {
-		const { hidden } = this.state;
-		return hidden
-			? null
-			: <div>See Me?</div>;
-	}
+const WrappedA = tickHOC(TickTock, { seconds: 0 }, intervalFn);
+const WrappedB = tickHOC(TickTock, { seconds: 3 }, intervalFn);
+const WrappedC = tickHOC(TickTock, { seconds: 6 }, intervalFn);
 
-	handleButtonClick(e) {
-		e.preventDefault();
-		const { hidden } = this.state;
-		this.setState({ hidden: !hidden });
-	}
-
-	render() {
-		const seeMeJSX = this.getSeeMeJSX();
-		return (
-			<div>
-				<button onClick={this.handleButtonClick}>Click To See Me!</button>
-				{seeMeJSX}
-			</div>
-		);
-	}
-}
+const App = () => (
+	<div>
+		<WrappedA />
+		<WrappedB />
+		<WrappedC />
+	</div>
+);
 
 export default App;
